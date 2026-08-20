@@ -1,0 +1,1328 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+
+:root {
+
+    --maroon: #70142b;
+    --dark-maroon: #4d0a1b;
+    --red: #b51f3d;
+    --cherry: #d62845;
+
+    --soft-red: #f6c9d1;
+    --pink: #fff0f3;
+    --cream: #fff9f7;
+
+    --white: #ffffff;
+
+    --text: #4a1825;
+    --gray: #8d6871;
+
+    --border: #f0cbd2;
+
+    --card: rgba(255, 255, 255, 0.92);
+
+    --shadow: 0 10px 30px rgba(94, 12, 35, 0.08);
+
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family: "DM Sans", sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #ffdfe6,
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #fff6f7,
+            #fffafa
+        );
+
+    color: var(--text);
+
+    min-height: 100vh;
+
+    transition:
+        background 0.3s,
+        color 0.3s;
+
+}
+
+
+/* DARK MODE */
+
+body.dark {
+
+    --maroon: #ff7b91;
+    --dark-maroon: #2a0710;
+    --red: #ff4666;
+    --cherry: #ff5470;
+
+    --soft-red: #5b1c2b;
+    --pink: #35101a;
+    --cream: #1d080d;
+
+    --white: #2b0d16;
+
+    --text: #ffe7eb;
+    --gray: #d4aab3;
+
+    --border: #54202c;
+
+    --card: rgba(47, 12, 22, 0.95);
+
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #48111e,
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #180509,
+            #2a0710
+        );
+
+}
+
+
+.cherry {
+
+    position: fixed;
+
+    font-size: 70px;
+
+    opacity: 0.08;
+
+    z-index: -1;
+
+}
+
+.cherry-1 {
+
+    top: 100px;
+    left: 30px;
+
+    transform: rotate(-15deg);
+
+}
+
+.cherry-2 {
+
+    top: 50%;
+    right: 30px;
+
+    transform: rotate(20deg);
+
+}
+
+.cherry-3 {
+
+    bottom: 30px;
+    left: 10%;
+
+    transform: rotate(-25deg);
+
+}
+
+
+/* HEADER */
+
+header {
+
+    width: 100%;
+
+    padding: 25px 8%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--dark-maroon),
+            #70142b,
+            var(--red)
+        );
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    color: white;
+
+    box-shadow:
+        0 5px 20px rgba(80, 0, 20, 0.18);
+
+}
+
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+.logo span {
+
+    font-size: 42px;
+
+}
+
+.logo h1 {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 28px;
+
+}
+
+.logo p {
+
+    font-size: 13px;
+
+    opacity: 0.8;
+
+    margin-top: 3px;
+
+}
+
+
+.header-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+
+}
+
+
+.print-btn,
+.theme-btn {
+
+    border:
+        1px solid rgba(255, 255, 255, 0.5);
+
+    background:
+        rgba(255, 255, 255, 0.15);
+
+    color: white;
+
+    padding: 11px 18px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    transition: 0.3s;
+
+}
+
+
+.theme-btn {
+
+    font-size: 18px;
+
+    padding: 9px 13px;
+
+}
+
+
+.print-btn:hover,
+.theme-btn:hover {
+
+    background: white;
+
+    color: #70142b;
+
+}
+
+
+main {
+
+    width: min(1150px, 90%);
+
+    margin: 35px auto;
+
+}
+
+
+/* PESAN LUCU */
+
+.cute-message {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 20px 25px;
+
+    margin-bottom: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f3,
+            #ffffff
+        );
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    box-shadow: var(--shadow);
+
+}
+
+body.dark .cute-message {
+
+    background:
+        linear-gradient(
+            135deg,
+            #35101a,
+            #240a11
+        );
+
+}
+
+
+.message-icon {
+
+    font-size: 45px;
+
+}
+
+.cute-message span {
+
+    color: var(--gray);
+
+    font-size: 13px;
+
+}
+
+.cute-message h3 {
+
+    margin-top: 5px;
+
+    color: var(--maroon);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+}
+
+
+/* FILTER BULAN */
+
+.month-filter {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background: var(--card);
+
+    border:
+        1px solid var(--border);
+
+}
+
+.month-filter h3 {
+
+    color: var(--maroon);
+
+}
+
+.month-filter p {
+
+    font-size: 13px;
+
+    color: var(--gray);
+
+    margin-top: 5px;
+
+}
+
+.month-filter input {
+
+    width: auto;
+
+}
+
+
+/* SUMMARY */
+
+.summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.card {
+
+    background: var(--card);
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    box-shadow: var(--shadow);
+
+    border:
+        1px solid var(--border);
+
+    transition: 0.3s;
+
+}
+
+.card:hover {
+
+    transform: translateY(-4px);
+
+}
+
+
+.card-icon {
+
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 26px;
+
+    background: var(--pink);
+
+}
+
+
+.card p {
+
+    color: var(--gray);
+
+    font-size: 14px;
+
+}
+
+
+.card h2 {
+
+    margin-top: 5px;
+
+    font-size: 24px;
+
+    color: var(--maroon);
+
+}
+
+
+.income-card {
+
+    border-bottom:
+        4px solid #4b9b6d;
+
+}
+
+.expense-card {
+
+    border-bottom:
+        4px solid var(--cherry);
+
+}
+
+.balance-card {
+
+    border-bottom:
+        4px solid var(--maroon);
+
+}
+
+
+/* REMINDER */
+
+.reminder-section {
+
+    display: none;
+
+    margin-bottom: 25px;
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    background:
+        #fff0d8;
+
+    border:
+        1px solid #f5c97c;
+
+    color: #7a4911;
+
+}
+
+body.dark .reminder-section {
+
+    background: #3a2410;
+
+    border-color: #6c4317;
+
+    color: #ffd49a;
+
+}
+
+.reminder-title {
+
+    margin-bottom: 10px;
+
+    font-size: 16px;
+
+}
+
+
+.reminder-item {
+
+    padding: 10px 0;
+
+    border-bottom:
+        1px dashed rgba(120, 70, 20, 0.25);
+
+}
+
+.reminder-item:last-child {
+
+    border-bottom: none;
+
+}
+
+
+/* GRID FORM */
+
+.content-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* BOX */
+
+.box {
+
+    background: var(--card);
+
+    padding: 28px;
+
+    border-radius: 20px;
+
+    border:
+        1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-title {
+
+    margin-bottom: 25px;
+
+}
+
+
+.section-title h2 {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    color: var(--maroon);
+
+    font-size: 23px;
+
+}
+
+
+.section-title span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--gray);
+
+    font-size: 13px;
+
+}
+
+
+/* FORM */
+
+.form-group {
+
+    margin-bottom: 17px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+
+    color: var(--text);
+
+}
+
+
+input,
+select {
+
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: var(--cream);
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    color: var(--text);
+
+    outline: none;
+
+    transition: 0.2s;
+
+}
+
+
+input:focus,
+select:focus {
+
+    border-color: var(--cherry);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(214, 40, 69, 0.1);
+
+}
+
+
+/* BUTTON */
+
+.main-btn {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #70142b,
+            var(--cherry)
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    box-shadow:
+        0 7px 15px
+        rgba(112, 20, 43, 0.2);
+
+}
+
+
+.main-btn:hover {
+
+    transform: translateY(-2px);
+
+}
+
+
+/* SAVINGS */
+
+.savings-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 40px;
+
+    align-items: center;
+
+}
+
+
+.goal-progress {
+
+    text-align: center;
+
+    padding: 30px;
+
+    background: var(--pink);
+
+    border-radius: 20px;
+
+}
+
+
+.goal-cherry {
+
+    font-size: 65px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.goal-progress h3 {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    color: var(--maroon);
+
+    margin-bottom: 20px;
+
+}
+
+
+.progress-bar {
+
+    width: 100%;
+
+    height: 18px;
+
+    background:
+        rgba(112, 20, 43, 0.12);
+
+    border-radius: 30px;
+
+    overflow: hidden;
+
+}
+
+
+.progress-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--maroon),
+            var(--cherry),
+            #ff7890
+        );
+
+    transition: width 0.6s ease;
+
+}
+
+
+.progress-info {
+
+    margin-top: 14px;
+
+    font-weight: 700;
+
+    color: var(--maroon);
+
+}
+
+
+.progress-percent {
+
+    margin-top: 8px;
+
+    font-size: 13px;
+
+    color: var(--gray);
+
+}
+
+
+/* CHART */
+
+.chart-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+
+}
+
+
+.chart-box {
+
+    min-height: 400px;
+
+}
+
+
+/* HISTORY */
+
+.history-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+}
+
+
+.clear-btn {
+
+    background:
+        var(--pink);
+
+    color: var(--cherry);
+
+    border:
+        1px solid var(--border);
+
+    padding: 9px 13px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+}
+
+
+.clear-btn:hover {
+
+    background: var(--cherry);
+
+    color: white;
+
+}
+
+
+/* SEARCH */
+
+.transaction-tools {
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+
+}
+
+.transaction-tools input {
+
+    flex: 1;
+
+}
+
+.transaction-tools select {
+
+    width: 200px;
+
+}
+
+
+/* TABLE */
+
+.table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+}
+
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+th {
+
+    text-align: left;
+
+    padding: 14px;
+
+    background: var(--pink);
+
+    color: var(--maroon);
+
+    font-size: 13px;
+
+}
+
+
+td {
+
+    padding: 14px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    font-size: 14px;
+
+}
+
+
+.badge {
+
+    display: inline-block;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+.badge-income {
+
+    background: #e4f6eb;
+
+    color: #287448;
+
+}
+
+
+.badge-expense {
+
+    background: #ffe2e7;
+
+    color: var(--cherry);
+
+}
+
+
+.amount-income {
+
+    color: #287448;
+
+    font-weight: 700;
+
+}
+
+
+.amount-expense {
+
+    color: var(--cherry);
+
+    font-weight: 700;
+
+}
+
+
+.delete-btn {
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--cherry);
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+}
+
+
+/* EMPTY */
+
+.empty-state {
+
+    text-align: center;
+
+    padding: 30px;
+
+    color: var(--gray);
+
+    display: none;
+
+}
+
+
+/* BILL */
+
+.bill-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(230px, 1fr)
+        );
+
+    gap: 15px;
+
+}
+
+
+.bill-item {
+
+    position: relative;
+
+    padding: 20px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink),
+            var(--card)
+        );
+
+    border:
+        1px solid var(--border);
+
+    border-left:
+        5px solid var(--cherry);
+
+}
+
+
+.bill-item.overdue {
+
+    border-left-color: #8b0000;
+
+}
+
+
+.bill-item h3 {
+
+    font-size: 16px;
+
+    color: var(--maroon);
+
+    margin-bottom: 10px;
+
+}
+
+
+.bill-item p {
+
+    color: var(--gray);
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.bill-amount {
+
+    color: var(--cherry) !important;
+
+    font-size: 18px !important;
+
+    font-weight: 700;
+
+    margin-top: 12px;
+
+}
+
+
+.bill-status {
+
+    margin-top: 10px;
+
+    font-size: 12px !important;
+
+    font-weight: 700;
+
+}
+
+
+.bill-delete {
+
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    color: var(--cherry);
+
+    font-size: 15px;
+
+}
+
+
+/* FOOTER */
+
+footer {
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: var(--gray);
+
+    font-size: 13px;
+
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 850px) {
+
+    .summary,
+    .content-grid,
+    .chart-grid,
+    .savings-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    header {
+
+        padding: 20px 5%;
+
+        flex-direction: column;
+
+        gap: 15px;
+
+        align-items: flex-start;
+
+    }
+
+
+    .header-actions {
+
+        width: 100%;
+
+    }
+
+
+    .print-btn {
+
+        flex: 1;
+
+    }
+
+
+    main {
+
+        width: 92%;
+
+        margin: 25px auto;
+
+    }
+
+
+    .box {
+
+        padding: 20px;
+
+    }
+
+
+    .history-header,
+    .month-filter {
+
+        flex-direction: column;
+
+        gap: 15px;
+
+    }
+
+
+    .transaction-tools {
+
+        flex-direction: column;
+
+    }
+
+
+    .transaction-tools select {
+
+        width: 100%;
+
+    }
+
+}
+
+
+/* PRINT */
+
+@media print {
+
+    body {
+
+        background: white;
+
+        color: black;
+
+    }
+
+
+    .print-btn,
+    .theme-btn,
+    .clear-btn,
+    .delete-btn,
+    .bill-delete,
+    .cherry,
+    .transaction-tools {
+
+        display: none !important;
+
+    }
+
+
+    header {
+
+        box-shadow: none;
+
+    }
+
+
+    main {
+
+        width: 100%;
+
+        margin: 20px auto;
+
+    }
+
+
+    .box,
+    .card,
+    .cute-message,
+    .month-filter {
+
+        box-shadow: none;
+
+        border: 1px solid #ccc;
+
+    }
+
+}

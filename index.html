@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cherry Finance 🍒</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js untuk grafik -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <!-- Dekorasi -->
+    <div class="cherry cherry-1">🍒</div>
+    <div class="cherry cherry-2">🍒</div>
+    <div class="cherry cherry-3">🍒</div>
+
+    <!-- HEADER -->
+    <header>
+
+        <div class="logo">
+            <span>🍒</span>
+
+            <div>
+                <h1>Cherry Finance</h1>
+                <p>Catat uangmu, atur hidupmu ♡</p>
+            </div>
+        </div>
+
+        <div class="header-actions">
+
+            <button
+                class="theme-btn"
+                id="themeToggle"
+                title="Ganti tema"
+            >
+                🌙
+            </button>
+
+            <button
+                class="print-btn"
+                onclick="window.print()"
+            >
+                🖨️ Print Rekap
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- PESAN LUCU -->
+        <section class="cute-message">
+
+            <div class="message-icon">🍒</div>
+
+            <div>
+                <span>Cherry says...</span>
+
+                <h3 id="financialMessage">
+                    Loading pesan manis...
+                </h3>
+            </div>
+
+        </section>
+
+
+        <!-- FILTER BULAN -->
+        <section class="month-filter">
+
+            <div>
+                <h3>📅 Rekap Keuangan</h3>
+                <p>Pilih bulan untuk melihat ringkasanmu</p>
+            </div>
+
+            <input type="month" id="monthFilter">
+
+        </section>
+
+
+        <!-- RINGKASAN -->
+        <section class="summary">
+
+            <div class="card income-card">
+
+                <div class="card-icon">
+                    💰
+                </div>
+
+                <div>
+                    <p>Total Pemasukan</p>
+                    <h2 id="totalIncome">Rp0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="card expense-card">
+
+                <div class="card-icon">
+                    💸
+                </div>
+
+                <div>
+                    <p>Total Pengeluaran</p>
+                    <h2 id="totalExpense">Rp0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="card balance-card">
+
+                <div class="card-icon">
+                    🍒
+                </div>
+
+                <div>
+                    <p>Sisa Uang</p>
+                    <h2 id="balance">Rp0</h2>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ALERT TAGIHAN -->
+        <section
+            class="reminder-section"
+            id="reminderSection"
+        >
+
+            <div class="reminder-title">
+                🚨 <strong>Pengingat Tagihan</strong>
+            </div>
+
+            <div id="billReminder"></div>
+
+        </section>
+
+
+        <!-- FORM -->
+        <section class="content-grid">
+
+            <!-- TAMBAH TRANSAKSI -->
+            <div class="box">
+
+                <div class="section-title">
+
+                    <h2>➕ Tambah Transaksi</h2>
+
+                    <span>
+                        Catat pemasukan atau pengeluaranmu
+                    </span>
+
+                </div>
+
+
+                <form id="transactionForm">
+
+                    <div class="form-group">
+
+                        <label>Jenis Transaksi</label>
+
+                        <select
+                            id="transactionType"
+                            required
+                        >
+
+                            <option value="income">
+                                💰 Pemasukan
+                            </option>
+
+                            <option value="expense">
+                                💸 Pengeluaran
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Kategori</label>
+
+                        <select
+                            id="transactionCategory"
+                            required
+                        >
+
+                            <option value="Gaji">
+                                💼 Gaji / Pendapatan
+                            </option>
+
+                            <option value="Makanan">
+                                🍔 Makanan
+                            </option>
+
+                            <option value="Belanja">
+                                🛍️ Belanja
+                            </option>
+
+                            <option value="Transportasi">
+                                🚗 Transportasi
+                            </option>
+
+                            <option value="Hiburan">
+                                🎮 Hiburan
+                            </option>
+
+                            <option value="Pendidikan">
+                                📚 Pendidikan
+                            </option>
+
+                            <option value="Rumah">
+                                🏠 Rumah
+                            </option>
+
+                            <option value="Tabungan">
+                                🎯 Tabungan
+                            </option>
+
+                            <option value="Lainnya">
+                                ✨ Lainnya
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Nama / Keterangan</label>
+
+                        <input
+                            type="text"
+                            id="transactionName"
+                            placeholder="Contoh: Gaji Bulanan"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Nominal</label>
+
+                        <input
+                            type="number"
+                            id="transactionAmount"
+                            placeholder="Contoh: 500000"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Tanggal</label>
+
+                        <input
+                            type="date"
+                            id="transactionDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="main-btn"
+                    >
+                        🍒 Simpan Transaksi
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- TAGIHAN -->
+            <div class="box">
+
+                <div class="section-title">
+
+                    <h2>📝 Catatan Tagihan</h2>
+
+                    <span>
+                        Jangan sampai lupa bayar!
+                    </span>
+
+                </div>
+
+
+                <form id="billForm">
+
+                    <div class="form-group">
+
+                        <label>Nama Tagihan</label>
+
+                        <input
+                            type="text"
+                            id="billName"
+                            placeholder="Contoh: Internet"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Tenggat Pembayaran</label>
+
+                        <input
+                            type="date"
+                            id="billDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Total Tagihan</label>
+
+                        <input
+                            type="number"
+                            id="billAmount"
+                            placeholder="Contoh: 250000"
+                            min="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="main-btn"
+                    >
+                        🔔 Tambah Tagihan
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+        <!-- TARGET TABUNGAN -->
+        <section class="box savings-section">
+
+            <div class="section-title">
+
+                <h2>🎯 Target Tabungan</h2>
+
+                <span>
+                    Pelan-pelan, nanti impiannya jadi nyata ♡
+                </span>
+
+            </div>
+
+
+            <div class="savings-grid">
+
+                <div class="savings-form">
+
+                    <div class="form-group">
+
+                        <label>Nama Target</label>
+
+                        <input
+                            type="text"
+                            id="goalName"
+                            placeholder="Contoh: Beli Laptop"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Target Nominal</label>
+
+                        <input
+                            type="number"
+                            id="goalAmount"
+                            placeholder="Contoh: 10000000"
+                            min="1"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Uang yang Sudah Terkumpul</label>
+
+                        <input
+                            type="number"
+                            id="goalSaved"
+                            placeholder="Contoh: 2500000"
+                            min="0"
+                        >
+
+                    </div>
+
+
+                    <button
+                        class="main-btn"
+                        id="saveGoal"
+                    >
+                        🎯 Simpan Target
+                    </button>
+
+                </div>
+
+
+                <div class="goal-progress">
+
+                    <div class="goal-cherry">
+                        🍒
+                    </div>
+
+                    <h3 id="displayGoalName">
+                        Belum ada target
+                    </h3>
+
+                    <div class="progress-bar">
+
+                        <div
+                            class="progress-fill"
+                            id="progressFill"
+                        ></div>
+
+                    </div>
+
+                    <div class="progress-info">
+
+                        <span id="goalSavedText">
+                            Rp0
+                        </span>
+
+                        <span id="goalAmountText">
+                            / Rp0
+                        </span>
+
+                    </div>
+
+                    <p
+                        class="progress-percent"
+                        id="goalPercent"
+                    >
+                        0% tercapai
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- GRAFIK -->
+        <section class="chart-grid">
+
+            <div class="box chart-box">
+
+                <div class="section-title">
+
+                    <h2>📊 Pemasukan vs Pengeluaran</h2>
+
+                    <span>
+                        Lihat kondisi keuanganmu bulan ini
+                    </span>
+
+                </div>
+
+                <canvas id="financeChart"></canvas>
+
+            </div>
+
+
+            <div class="box chart-box">
+
+                <div class="section-title">
+
+                    <h2>🍒 Pengeluaran per Kategori</h2>
+
+                    <span>
+                        Uangmu paling banyak pergi ke mana?
+                    </span>
+
+                </div>
+
+                <canvas id="categoryChart"></canvas>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIWAYAT -->
+        <section class="box history-section">
+
+            <div class="history-header">
+
+                <div class="section-title">
+
+                    <h2>📜 Riwayat Transaksi</h2>
+
+                    <span>
+                        Semua pemasukan dan pengeluaran
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="clear-btn"
+                    id="clearTransactions"
+                >
+                    🗑️ Hapus Semua
+                </button>
+
+            </div>
+
+
+            <!-- SEARCH DAN FILTER -->
+
+            <div class="transaction-tools">
+
+                <input
+                    type="text"
+                    id="searchTransaction"
+                    placeholder="🔎 Cari transaksi..."
+                >
+
+
+                <select id="typeFilter">
+
+                    <option value="all">
+                        Semua Transaksi
+                    </option>
+
+                    <option value="income">
+                        💰 Pemasukan
+                    </option>
+
+                    <option value="expense">
+                        💸 Pengeluaran
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Tanggal</th>
+
+                            <th>Keterangan</th>
+
+                            <th>Kategori</th>
+
+                            <th>Jenis</th>
+
+                            <th>Nominal</th>
+
+                            <th>Aksi</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="transactionList">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div
+                id="emptyTransaction"
+                class="empty-state"
+            >
+
+                🍒 Belum ada transaksi.
+                Yuk mulai mencatat!
+
+            </div>
+
+        </section>
+
+
+        <!-- DAFTAR TAGIHAN -->
+
+        <section class="box bill-list-section">
+
+            <div class="history-header">
+
+                <div class="section-title">
+
+                    <h2>🔔 Daftar Tagihan</h2>
+
+                    <span>
+                        Jangan biarkan ada yang terlewat!
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="clear-btn"
+                    id="clearBills"
+                >
+                    🗑️ Hapus Semua
+                </button>
+
+            </div>
+
+
+            <div
+                class="bill-list"
+                id="billList"
+            ></div>
+
+
+            <div
+                id="emptyBill"
+                class="empty-state"
+            >
+
+                🍒 Belum ada tagihan.
+                Aman untuk sekarang!
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            🍒 Cherry Finance —
+            Kelola keuanganmu dengan manis.
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
