@@ -20,14 +20,46 @@ let bills =
     ) || [];
 
 
-let savingsGoal =
+let savingsGoals =
     JSON.parse(
-        localStorage.getItem("cherrySavingsGoal")
-    ) || {
-        name: "",
-        amount: 0,
-        saved: 0
-    };
+        localStorage.getItem("cherrySavingsGoals")
+    ) || [];
+
+
+// MIGRASI DATA LAMA (satu target tunggal) KE FORMAT ARRAY BARU
+
+if (savingsGoals.length === 0) {
+
+    const oldGoal =
+        JSON.parse(
+            localStorage.getItem("cherrySavingsGoal")
+        );
+
+
+    if (oldGoal && oldGoal.name) {
+
+        savingsGoals = [
+            {
+                id: Date.now(),
+                name: oldGoal.name,
+                amount: oldGoal.amount || 0,
+                saved: oldGoal.saved || 0
+            }
+        ];
+
+
+        localStorage.setItem(
+            "cherrySavingsGoals",
+            JSON.stringify(savingsGoals)
+        );
+
+        localStorage.removeItem(
+            "cherrySavingsGoal"
+        );
+
+    }
+
+}
 
 
 let financeChart = null;
@@ -946,10 +978,13 @@ document
 // ==========================================
 
 document
-    .getElementById("saveGoal")
+    .getElementById("goalForm")
     .addEventListener(
-        "click",
-        function() {
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
 
             const name =
                 document.getElementById(
@@ -988,7 +1023,9 @@ document
             }
 
 
-            savingsGoal = {
+            savingsGoals.push({
+
+                id: Date.now(),
 
                 name: name,
 
@@ -996,98 +1033,257 @@ document
 
                 saved: saved
 
-            };
+            });
 
 
-            localStorage.setItem(
-                "cherrySavingsGoal",
-                JSON.stringify(
-                    savingsGoal
-                )
-            );
+            saveSavingsGoals();
 
 
-            renderSavingsGoal();
+            renderSavingsGoals();
+
+
+            this.reset();
+
+
+            document.getElementById(
+                "goalSaved"
+            ).value = "0";
 
         }
     );
 
 
 // ==========================================
-// RENDER TARGET TABUNGAN
+// SIMPAN TARGET TABUNGAN
 // ==========================================
 
-function renderSavingsGoal() {
+function saveSavingsGoals() {
 
-    const {
-        name,
-        amount,
-        saved
-    } = savingsGoal;
+    localStorage.setItem(
+        "cherrySavingsGoals",
+        JSON.stringify(savingsGoals)
+    );
+
+}
 
 
-    let percentage = 0;
+// ==========================================
+// HAPUS TARGET TABUNGAN
+// ==========================================
+
+function deleteSavingsGoal(id) {
+
+    if (
+        !confirm(
+            "Yakin ingin menghapus target ini?"
+        )
+    ) return;
+
+
+    savingsGoals =
+        savingsGoals.filter(
+            goal => goal.id !== id
+        );
+
+
+    saveSavingsGoals();
+
+    renderSavingsGoals();
+
+}
+
+
+// ==========================================
+// TAMBAH DANA KE TARGET
+// ==========================================
+
+function addFundsToGoal(id) {
+
+    const input =
+        document.getElementById(
+            `addFunds-${id}`
+        );
+
+
+    const amount =
+        Number(input.value);
 
 
     if (
-        amount > 0
+        !amount ||
+        amount <= 0
     ) {
 
-        percentage =
-            Math.min(
-                (saved / amount) * 100,
-                100
-            );
+        alert(
+            "Isi nominal dana yang mau ditambah dulu yaa 🍒"
+        );
+
+        return;
 
     }
 
 
-    document.getElementById(
-        "displayGoalName"
-    ).textContent =
-        name || "Belum ada target";
+    const goal =
+        savingsGoals.find(
+            goal => goal.id === id
+        );
 
 
-    document.getElementById(
-        "goalSavedText"
-    ).textContent =
-        formatRupiah(saved);
+    if (!goal) return;
 
 
-    document.getElementById(
-        "goalAmountText"
-    ).textContent =
-        `/ ${formatRupiah(amount)}`;
+    goal.saved += amount;
 
 
-    document.getElementById(
-        "goalPercent"
-    ).textContent =
-        `${Math.round(percentage)}% tercapai`;
+    saveSavingsGoals();
+
+    renderSavingsGoals();
+
+}
 
 
-    document.getElementById(
-        "progressFill"
-    ).style.width =
-        `${percentage}%`;
+// ==========================================
+// RENDER TARGET TABUNGAN
+// ==========================================
+
+function renderSavingsGoals() {
+
+    const goalsList =
+        document.getElementById(
+            "goalsList"
+        );
 
 
-    document.getElementById(
-        "goalName"
-    ).value =
-        name;
+    const emptyGoals =
+        document.getElementById(
+            "emptyGoals"
+        );
 
 
-    document.getElementById(
-        "goalAmount"
-    ).value =
-        amount || "";
+    goalsList.innerHTML = "";
 
 
-    document.getElementById(
-        "goalSaved"
-    ).value =
-        saved || "";
+    if (savingsGoals.length === 0) {
+
+        emptyGoals.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    emptyGoals.style.display =
+        "none";
+
+
+    savingsGoals.forEach(goal => {
+
+        const {
+            id,
+            name,
+            amount,
+            saved
+        } = goal;
+
+
+        let percentage = 0;
+
+
+        if (amount > 0) {
+
+            percentage =
+                Math.min(
+                    (saved / amount) * 100,
+                    100
+                );
+
+        }
+
+
+        const isComplete =
+            percentage >= 100;
+
+
+        const card =
+            document.createElement("div");
+
+
+        card.className =
+            "goal-progress";
+
+
+        card.innerHTML = `
+
+            <button
+                class="goal-delete"
+                onclick="deleteSavingsGoal(${id})"
+            >
+                🗑️
+            </button>
+
+            <div class="goal-cherry">
+                🍒
+            </div>
+
+            <h3>
+                ${name}
+            </h3>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    style="width: ${percentage}%"
+                ></div>
+
+            </div>
+
+            <div class="progress-info">
+
+                <span>
+                    ${formatRupiah(saved)}
+                </span>
+
+                <span>
+                    / ${formatRupiah(amount)}
+                </span>
+
+            </div>
+
+            <p class="progress-percent">
+                ${Math.round(percentage)}% tercapai
+            </p>
+
+            ${
+                isComplete
+                    ? `<span class="goal-complete-tag">🎉 Target Tercapai!</span>`
+                    : `
+                        <div class="goal-add-funds">
+
+                            <input
+                                type="number"
+                                id="addFunds-${id}"
+                                placeholder="Tambah dana"
+                                min="1"
+                            >
+
+                            <button
+                                onclick="addFundsToGoal(${id})"
+                            >
+                                💰 Tambah
+                            </button>
+
+                        </div>
+                    `
+            }
+
+        `;
+
+
+        goalsList.appendChild(card);
+
+    });
 
 }
 
@@ -1484,6 +1680,190 @@ function setToday() {
 
 
 // ==========================================
+// EXPORT REKAP KE EXCEL (SATU SHEET)
+// ==========================================
+
+function exportToExcel() {
+
+    const selectedMonth =
+        document.getElementById(
+            "monthFilter"
+        ).value;
+
+
+    const monthTransactions =
+        getMonthTransactions().sort(
+            (a, b) =>
+                new Date(a.date) -
+                new Date(b.date)
+        );
+
+
+    let totalIncome = 0;
+
+    let totalExpense = 0;
+
+
+    monthTransactions.forEach(transaction => {
+
+        if (transaction.type === "income") {
+
+            totalIncome += transaction.amount;
+
+        } else {
+
+            totalExpense += transaction.amount;
+
+        }
+
+    });
+
+
+    const balance =
+        totalIncome - totalExpense;
+
+
+    const monthLabel =
+        selectedMonth
+            ? new Date(
+                selectedMonth + "-01T00:00:00"
+              ).toLocaleDateString(
+                "id-ID",
+                {
+                    month: "long",
+                    year: "numeric"
+                }
+              )
+            : "Semua Periode";
+
+
+    // SUSUN DATA JADI SATU LEMBAR (SHEET)
+
+    const sheetData = [];
+
+
+    sheetData.push([
+        "CHERRY FINANCE 🍒 — REKAP KEUANGAN"
+    ]);
+
+    sheetData.push([
+        `Periode: ${monthLabel}`
+    ]);
+
+    sheetData.push([]);
+
+
+    sheetData.push([
+        "RINGKASAN"
+    ]);
+
+    sheetData.push([
+        "Total Pemasukan",
+        totalIncome
+    ]);
+
+    sheetData.push([
+        "Total Pengeluaran",
+        totalExpense
+    ]);
+
+    sheetData.push([
+        "Sisa Uang",
+        balance
+    ]);
+
+    sheetData.push([]);
+
+
+    sheetData.push([
+        "RIWAYAT TRANSAKSI"
+    ]);
+
+    sheetData.push([
+        "Tanggal",
+        "Keterangan",
+        "Kategori",
+        "Jenis",
+        "Nominal"
+    ]);
+
+
+    if (monthTransactions.length === 0) {
+
+        sheetData.push([
+            "Belum ada transaksi pada periode ini"
+        ]);
+
+    } else {
+
+        monthTransactions.forEach(transaction => {
+
+            sheetData.push([
+                formatDate(transaction.date),
+                transaction.name,
+                transaction.category,
+                transaction.type === "income"
+                    ? "Pemasukan"
+                    : "Pengeluaran",
+                transaction.type === "income"
+                    ? transaction.amount
+                    : -transaction.amount
+            ]);
+
+        });
+
+    }
+
+
+    // BUAT WORKBOOK SATU SHEET
+
+    const worksheet =
+        XLSX.utils.aoa_to_sheet(sheetData);
+
+
+    worksheet["!cols"] = [
+        { wch: 22 },
+        { wch: 28 },
+        { wch: 18 },
+        { wch: 14 },
+        { wch: 16 }
+    ];
+
+
+    const workbook =
+        XLSX.utils.book_new();
+
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        "Rekap Keuangan"
+    );
+
+
+    const fileName =
+        `Cherry-Finance-Rekap-${
+            selectedMonth || "semua"
+        }.xlsx`;
+
+
+    XLSX.writeFile(
+        workbook,
+        fileName
+    );
+
+}
+
+
+document
+    .getElementById("exportExcelBtn")
+    .addEventListener(
+        "click",
+        exportToExcel
+    );
+
+
+// ==========================================
 // RENDER SEMUA
 // ==========================================
 
@@ -1495,7 +1875,7 @@ function renderAll() {
 
     renderBills();
 
-    renderSavingsGoal();
+    renderSavingsGoals();
 
     checkBillReminders();
 
