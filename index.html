@@ -10,6 +10,9 @@
 
     <!-- Chart.js untuk grafik -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- SheetJS untuk export Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 
 <body>
@@ -43,9 +46,9 @@
 
             <button
                 class="print-btn"
-                onclick="window.print()"
+                id="exportExcelBtn"
             >
-                🖨️ Print Rekap
+                📊 Export Excel
             </button>
 
         </div>
@@ -371,7 +374,7 @@
                 <h2>🎯 Target Tabungan</h2>
 
                 <span>
-                    Pelan-pelan, nanti impiannya jadi nyata ♡
+                    Pelan-pelan, nanti pasti ketemu seventeen ♡
                 </span>
 
             </div>
@@ -381,98 +384,80 @@
 
                 <div class="savings-form">
 
-                    <div class="form-group">
+                    <form id="goalForm">
 
-                        <label>Nama Target</label>
+                        <div class="form-group">
 
-                        <input
-                            type="text"
-                            id="goalName"
-                            placeholder="Contoh: Beli Laptop"
+                            <label>Nama Target</label>
+
+                            <input
+                                type="text"
+                                id="goalName"
+                                placeholder="Contoh: Beli Laptop"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Target Nominal</label>
+
+                            <input
+                                type="number"
+                                id="goalAmount"
+                                placeholder="Contoh: 10000000"
+                                min="1"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Uang yang Sudah Terkumpul</label>
+
+                            <input
+                                type="number"
+                                id="goalSaved"
+                                placeholder="Contoh: 2500000"
+                                min="0"
+                                value="0"
+                            >
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="main-btn"
                         >
+                            🎯 Tambah Target Baru
+                        </button>
 
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>Target Nominal</label>
-
-                        <input
-                            type="number"
-                            id="goalAmount"
-                            placeholder="Contoh: 10000000"
-                            min="1"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>Uang yang Sudah Terkumpul</label>
-
-                        <input
-                            type="number"
-                            id="goalSaved"
-                            placeholder="Contoh: 2500000"
-                            min="0"
-                        >
-
-                    </div>
-
-
-                    <button
-                        class="main-btn"
-                        id="saveGoal"
-                    >
-                        🎯 Simpan Target
-                    </button>
+                    </form>
 
                 </div>
 
 
-                <div class="goal-progress">
+                <div class="goals-list-wrapper">
 
-                    <div class="goal-cherry">
-                        🍒
-                    </div>
+                    <div
+                        class="goals-list"
+                        id="goalsList"
+                    ></div>
 
-                    <h3 id="displayGoalName">
-                        Belum ada target
-                    </h3>
-
-                    <div class="progress-bar">
-
-                        <div
-                            class="progress-fill"
-                            id="progressFill"
-                        ></div>
-
-                    </div>
-
-                    <div class="progress-info">
-
-                        <span id="goalSavedText">
-                            Rp0
-                        </span>
-
-                        <span id="goalAmountText">
-                            / Rp0
-                        </span>
-
-                    </div>
-
-                    <p
-                        class="progress-percent"
-                        id="goalPercent"
+                    <div
+                        id="emptyGoals"
+                        class="empty-state"
                     >
-                        0% tercapai
-                    </p>
+                        🍒 Belum ada target tabungan.
+                        Yuk buat target pertamamu!
+                    </div>
 
                 </div>
-
-            </div>
 
         </section>
 
