@@ -745,7 +745,37 @@ select:focus {
 }
 
 
+.goals-list-wrapper {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    max-height: 520px;
+
+    overflow-y: auto;
+
+    padding-right: 4px;
+
+}
+
+
+.goals-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+}
+
+
 .goal-progress {
+
+    position: relative;
 
     text-align: center;
 
@@ -754,6 +784,26 @@ select:focus {
     background: var(--pink);
 
     border-radius: 20px;
+
+}
+
+
+.goal-delete {
+
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    color: var(--cherry);
+
+    font-size: 15px;
 
 }
 
@@ -776,6 +826,79 @@ select:focus {
     color: var(--maroon);
 
     margin-bottom: 20px;
+
+}
+
+
+.goal-complete-tag {
+
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 5px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    background: #e4f6eb;
+
+    color: #287448;
+
+}
+
+
+.goal-add-funds {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 16px;
+
+}
+
+
+.goal-add-funds input {
+
+    flex: 1;
+
+    padding: 9px 11px;
+
+    font-size: 13px;
+
+}
+
+
+.goal-add-funds button {
+
+    border: none;
+
+    padding: 9px 14px;
+
+    border-radius: 10px;
+
+    background: var(--maroon);
+
+    color: white;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+
+}
+
+
+.goal-add-funds button:hover {
+
+    background: var(--cherry);
 
 }
 
@@ -1290,6 +1413,8 @@ footer {
     .clear-btn,
     .delete-btn,
     .bill-delete,
+    .goal-delete,
+    .goal-add-funds,
     .cherry,
     .transaction-tools {
 
